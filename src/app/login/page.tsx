@@ -36,6 +36,10 @@ export default function LoginPage({ searchParams }: PageProps) {
     signIn("google", { callbackUrl: '/'})
   }
 
+  const signInWithGitHub = () => {
+    signIn("github", { callbackUrl: '/'})
+  } 
+
   return (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -44,6 +48,13 @@ export default function LoginPage({ searchParams }: PageProps) {
               Sign in with Google
             </button>
           </div>
+
+          <div>
+            <button onClick={signInWithGitHub}>
+              Sign in with GitHub
+            </button>
+          </div>
+
           <br/>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>

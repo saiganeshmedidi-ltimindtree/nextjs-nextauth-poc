@@ -10,7 +10,8 @@ function authenticate(username: string, password: string) {
   const user = { 
     id: "9001",
     name: "Web Admin", 
-    email: "admin@example.com"
+    email: "admin@example.com",
+    role: "user"
   }; //(3)
 
   return user; //(4) 
