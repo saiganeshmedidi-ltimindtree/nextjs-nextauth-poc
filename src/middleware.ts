@@ -13,11 +13,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  if (isAuth && (token || token.role !== "admin")) {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
-
-
   return NextResponse.next();
 }
 
