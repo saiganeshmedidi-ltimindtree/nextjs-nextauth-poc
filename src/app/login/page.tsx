@@ -1,6 +1,10 @@
 "use client";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import { ChangeEvent, FormEvent, useState } from "react";
+
+import googleLogo from "../../../public/google.png";
+import gitHubLogo from "../../../public/github.png";
 
 type LoginInput = {
   username: string;
@@ -33,89 +37,113 @@ export default function LoginPage({ searchParams }: PageProps) {
   };
 
   const signInWithGoogle = () => {
-    signIn("google", { callbackUrl: '/'})
-  }
+    signIn("google", { callbackUrl: "/" });
+  };
 
   const signInWithGitHub = () => {
-    signIn("github", { callbackUrl: '/'})
-  } 
+    signIn("github", { callbackUrl: "/" });
+  };
 
-  return (
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <div>
-            <button onClick={signInWithGoogle}>
-              Sign in with Google
-            </button>
-          </div>
-
-          <div>
-            <button onClick={signInWithGitHub}>
-              Sign in with GitHub
-            </button>
-          </div>
-
-          <br/>
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Username
-              </label>
-              <div className="mt-2">
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  autoComplete="off"
-                  required
-                  value={inputs.username || ""}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="off"
-                  required
-                  value={inputs.password || ""}
-                  onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
-            </div>
-            {searchParams.error && (
-              <p className="text-red-600 text-center capitalize">
-                Login failed.
-              </p>
-            )}
-          </form>
+  const getSocialLogins = () => {
+    return (
+      <div>
+        <div className="p-2">
+          <button
+            onClick={signInWithGoogle}
+            className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+          >
+            <Image
+              className="w-6 h-6"
+              src={googleLogo}
+              alt="google logo"
+              width={20}
+              height={20}
+            />
+            <span>Login with Google</span>
+          </button>
+        </div>
+        <div className="p-2">
+          <button
+            onClick={signInWithGitHub}
+            className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
+          >
+            <Image
+              className="w-6 h-6"
+              src={gitHubLogo}
+              alt="github-logo"
+              width={20}
+              height={20}
+            />
+            <span>Login with GitHub</span>
+          </button>
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        {getSocialLogins()}
+        <br />
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div>
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Username
+            </label>
+            <div className="mt-2">
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="off"
+                required
+                value={inputs.username || ""}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Password
+              </label>
+            </div>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="off"
+                required
+                value={inputs.password || ""}
+                onChange={handleChange}
+                className="block w-full rounded-md border-0 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign in
+            </button>
+          </div>
+          {searchParams.error && (
+            <p className="text-red-600 text-center capitalize">Login failed.</p>
+          )}
+        </form>
+      </div>
+    </div>
   );
 }
